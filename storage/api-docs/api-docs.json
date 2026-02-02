@@ -1,0 +1,225 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Graph API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/nodes": {
+            "get": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "Lista nodos raíz",
+                "operationId": "9bfc2b97e5d2f2d2940bff8b1d5bda5c",
+                "parameters": [
+                    {
+                        "name": "depth",
+                        "in": "query",
+                        "description": "Profundidad de hijos",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Idioma (en, es o ca)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de nodos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Node"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "Crear un nodo",
+                "operationId": "storeNode",
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Idioma (en, es o ca)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "en"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "parent": {
+                                        "type": "integer",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Nodo creado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Node"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Datos inválidos"
+                    }
+                }
+            }
+        },
+        "/api/v1/nodes/{id}": {
+            "get": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "Muestra un nodo por id",
+                "operationId": "showNode",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del nodo",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "depth",
+                        "in": "query",
+                        "description": "Profundidad de hijos",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Idioma (en o ca)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Nodo encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Node"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nodo no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "Elimina un nodo",
+                "operationId": "deleteNode",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Nodo eliminado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Node"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nodo no encontrado"
+                    },
+                    "400": {
+                        "description": "No se puede eliminar nodo con hijos"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Node": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Nodes",
+            "description": "Nodes"
+        }
+    ]
+}
