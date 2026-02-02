@@ -38,5 +38,8 @@ php artisan key:generate
 Agregar al .env credenciales de base de datos
 php artisan migrate
 php artisan db:seed
- php artisan l5-swagger:generate
+php artisan l5-swagger:generate
+php artisan serve 
+
+Ruta: http://127.0.0.1:8000
 ```
