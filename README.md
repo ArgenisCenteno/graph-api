@@ -20,10 +20,10 @@ API para gestión de **nodos** construida con **Laravel 12**, con documentación
 
 ## 🛠 Requisitos
 
-- PHP >= 8.2  
-- Composer  
-- MySQL / PostgreSQL / SQLite  
-- Extensiones PHP: `mbstring`, `openssl`, `pdo`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`  
+- PHP >= 8.2
+- Composer
+- MySQL / PostgreSQL / SQLite
+- Extensiones PHP: `mbstring`, `openssl`, `pdo`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`
 
 ---
 
@@ -35,3 +35,8 @@ cd graph-api
 cp .env.example .env
 composer install
 php artisan key:generate
+Agregar al .env credenciales de base de datos
+php artisan migrate
+php artisan db:seed
+ php artisan l5-swagger:generate
+```
